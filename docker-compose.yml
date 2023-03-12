@@ -1,0 +1,22 @@
+services:
+  php:
+    build:
+      context: ./app
+    ports:
+      - 8000:80
+    volumes:
+      - ./app:/var/www/html
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=dont-do-it-in-prod
+      - MYSQL_DATABASE=banner-view-counter
+    
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=dont-do-it-in-prod
+      - MYSQL_DATABASE=banner-view-counter
+
